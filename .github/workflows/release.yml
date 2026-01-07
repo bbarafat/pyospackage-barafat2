@@ -50,7 +50,7 @@ jobs:
           if-no-files-found: error
   publish:
     name: >-
-      Publish Python 🐍 distribution 📦 to PyPI
+      Publish Python 🐍 distribution 📦 to TestPyPI
     # Only publish to PyPI with a release trigger in your repository.
     if: github.repository_owner == 'bbarafat' && github.event_name == 'release'
     needs:
@@ -60,7 +60,7 @@ jobs:
     environment:
       name: testpypi
       # Modify the url to be the name of your package
-      url: https://testpypi.org/p/pyospackage_barafat2
+      url: https://test.pypi.org/p/pyospackage_barafat2
     permissions:
       id-token: write  # this permission is mandatory for PyPI publishing
     steps:
@@ -74,3 +74,6 @@ jobs:
         # Only publish to real PyPI on release. This action uses sigstore for additional security.
         if: github.event_name == 'release' && github.event.action == 'published'
         uses: pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e #v1.13.0
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          
